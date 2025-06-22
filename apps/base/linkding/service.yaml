@@ -7,4 +7,4 @@ spec:
     - port: 9090 #Correspond to the container port that is exposedd in deployment.yaml
   selector:
     app: linkding # This should match the label in the deployment.yaml
-  type: ClusterIP
+  type: ClusterIP # ClusterIP is the default service type, which Creates an internal IP address accessible only within the cluster. Request → Service IP → Pod
