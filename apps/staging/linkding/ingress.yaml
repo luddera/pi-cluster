@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: traefik # I saw this running k get ingressclassnetworking.k8s.io 
   rules:
-    - host: ldpi-grafana.ludfrancisco.com # This is the host for the linkding service, change it to your domain
+    - host: lds.ludfrancisco.com # This is the host for the linkding service, change it to your domain
       http:
         paths: 
           - backend:
