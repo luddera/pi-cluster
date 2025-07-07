@@ -31,3 +31,35 @@ spec:
   values:
     grafana:
       adminPassword: mischa
+      ingress:
+        ## If true, Grafana Ingress will be created
+        ##
+        enabled: true # Set to true to enable Grafana Ingress
+
+        ## IngressClassName for Grafana Ingress.
+        ## Should be provided if Ingress is enable.
+        ##
+        ingressClassName: traefik # This is the ingress class for Traefik, change it to your ingress class if needed
+
+        ## Annotations for Grafana Ingress
+        ##
+        
+
+        ## Hostnames.
+        ## Must be provided if Ingress is enable.
+        ##
+        # hosts:
+        #   - grafana.domain.com
+        hosts:
+          - grs.ludfrancisco.com # Change this to your desired domain for Grafana
+
+        ## Path for grafana ingress
+      
+
+        ## TLS configuration for grafana Ingress
+        ## Secret must be manually created in the namespace
+        ##
+        tls: []
+        # - secretName: grafana-general-tls
+        #   hosts:
+        #   - grafana.example.com
