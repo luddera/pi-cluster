@@ -59,7 +59,7 @@ spec:
         ## TLS configuration for grafana Ingress
         ## Secret must be manually created in the namespace
         ##
-        tls: []
-        # - secretName: grafana-general-tls
-        #   hosts:
-        #   - grafana.example.com
+        tls: 
+         - secretName: grafana-tls-secret # This is the name of the TLS secret for Grafana. I took from the grafana-tls-secret.yaml file
+           hosts:
+           - grs.ludfrancisco.com
