@@ -1,3 +1,61 @@
+# Environment and configuration files
 .envrc
 kubeconfig
+
+# IDE and editor files
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sensitive cryptographic material - NEVER COMMIT THESE!
+*.key
+*.pem
+*.p12
+*.pfx
+age.agekey
+*.agekey
+
+# TLS certificates and keys
+tls.crt
+tls.key
+*.crt
+*.cert
+
+# Kubernetes secrets and sensitive configs
+*secret*.yaml
+*-secret.yaml
+secrets/
+.secrets/
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.backup
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local development
+.env
+.env.local
+.env.*.local
+
+# Helm charts dependencies
+charts/*/charts/
+charts/*/Chart.lock
+
+# Terraform state files (if using Terraform)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# SOPS encrypted files that shouldn't be committed
+# (Only commit the encrypted versions, not the decrypted ones)
+*-decrypted.yaml
+*_decrypted.yaml
