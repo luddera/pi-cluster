@@ -49,6 +49,11 @@ logs/
 charts/*/charts/
 charts/*/Chart.lock
 
+# Helm values files with sensitive data
+values.yaml
+values-*.yaml
+*-values.yaml
+
 # Terraform state files (if using Terraform)
 *.tfstate
 *.tfstate.*
