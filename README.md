@@ -86,17 +86,85 @@ pi-cluster/
   - Ingress with TLS termination
   - Drift detection enabled
 
+## 🚨 CRITICAL SECURITY NOTICE
+
+**⚠️ SECURITY INCIDENT RESOLVED ⚠️**
+
+**Previous Security Issue**: This repository previously contained exposed cryptographic keys in Git history:
+- `age.agekey` (SOPS private key)
+- `tls.key` and `tls.crt` (TLS certificates)
+
+**Actions Taken**:
+- ✅ Removed sensitive files from repository
+- ✅ Updated .gitignore to prevent future exposure
+- ✅ Committed security fix
+
+**REQUIRED ACTIONS FOR USERS**:
+1. **🔑 Regenerate ALL compromised keys immediately**
+2. **🔄 Update all systems using these keys**
+3. **🔍 Audit access logs for unauthorized usage**
+4. **📋 Review and rotate any dependent credentials**
+
 ## 🔐 Security
 
 ### Secrets Management
-- **SOPS**: Used for encrypting sensitive data
-- **Age**: Encryption backend for SOPS
+- **SOPS**: Used for encrypting sensitive data with age encryption
+- **Age**: Encryption backend for SOPS (keys must be regenerated)
 - **Secret References**: Environment variables stored as Kubernetes secrets
+- **Key Rotation**: Regular rotation of encryption keys recommended
+
+### Security Best Practices
+- **Never commit private keys**: Use .gitignore patterns for sensitive files
+- **Use SOPS encryption**: All secrets should be encrypted before committing
+- **Regular key rotation**: Implement periodic key rotation policies
+- **Access auditing**: Monitor and log access to sensitive resources
 
 ### Security Contexts
 - Applications run with non-root users
 - Privilege escalation disabled
 - Proper file system permissions
+- Network policies for traffic isolation
+
+### Key Regeneration Guide
+
+#### 1. Generate New Age Key
+```bash
+# Generate new age key pair
+age-keygen -o age.agekey
+# Keep this file secure and never commit it!
+
+# Extract public key for SOPS configuration
+grep "# public key:" age.agekey
+```
+
+#### 2. Update SOPS Configuration
+```bash
+# Update .sops.yaml with new public key
+# Re-encrypt all existing secrets with new key
+find . -name "*.yaml" -path "*/staging/*" -exec sops updatekeys {} \;
+```
+
+#### 3. Generate New TLS Certificates
+```bash
+# Generate new TLS certificate and key
+openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes
+# Update ingress configurations with new certificates
+```
+
+#### 4. Update Kubernetes Secrets
+```bash
+# Update SOPS age key secret in cluster
+kubectl delete secret sops-age -n flux-system
+kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-file=age.agekey=./age.agekey
+
+# Update TLS secrets
+kubectl create secret tls grafana-tls-secret \
+  --cert=tls.crt \
+  --key=tls.key \
+  -n monitoring
+```
 
 ## 🌐 Networking
 
