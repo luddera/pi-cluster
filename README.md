@@ -86,24 +86,25 @@ pi-cluster/
   - Ingress with TLS termination
   - Drift detection enabled
 
-## 🚨 CRITICAL SECURITY NOTICE
+## 🔐 Security & Best Practices
 
-**⚠️ SECURITY INCIDENT RESOLVED ⚠️**
+**🛡️ SECURITY MEASURES IMPLEMENTED**
 
-**Previous Security Issue**: This repository previously contained exposed cryptographic keys in Git history:
-- `age.agekey` (SOPS private key)
-- `tls.key` and `tls.crt` (TLS certificates)
+**Sensitive Files Protection**: This repository now properly protects cryptographic keys:
+- `age.agekey` (SOPS private key) - Properly ignored
+- `tls.key` and `tls.crt` (TLS certificates) - Properly ignored
 
-**Actions Taken**:
-- ✅ Removed sensitive files from repository
-- ✅ Updated .gitignore to prevent future exposure
-- ✅ Committed security fix
+**Actions Implemented**:
+- ✅ Updated .gitignore with comprehensive security patterns
+- ✅ Removed sensitive files from Git tracking
+- ✅ Files remain available locally for project functionality
+- ✅ Prevents future accidental commits of sensitive material
 
-**REQUIRED ACTIONS FOR USERS**:
-1. **🔑 Regenerate ALL compromised keys immediately**
-2. **🔄 Update all systems using these keys**
-3. **🔍 Audit access logs for unauthorized usage**
-4. **📋 Review and rotate any dependent credentials**
+**For New Users**:
+1. **🔑 Generate your own age keys for SOPS encryption**
+2. **🔄 Create your own TLS certificates for ingress**
+3. **🔍 Never commit private keys or certificates**
+4. **📋 Follow the security best practices below**
 
 ## 🔐 Security
 
